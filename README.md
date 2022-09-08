@@ -12,9 +12,9 @@ Steps:
 
 The format of attNameInfo.txt file is discussed below:
 
-n,X,0.584136353,0.793126712
-n,Y,0.319833237,0.466221967
-c,Class,2,1,2
+n,X,0.584136353,0.793126712 
+n,Y,0.319833237,0.466221967 
+c,Class,2,1,2 
 
 The format of attNameInfo.txt file indicates that the dataset has two numerical attributes (X and Y) and a class attribute (i.e., Class). Note that, the class attribute is only used for evaluation purposes.
 
