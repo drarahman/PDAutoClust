@@ -1,5 +1,4 @@
 Title of the paper: PDAutoClust: An Automated Identification Approach for Partial Discharge Detection Using Density Based Clustering Without User Inputs
-Md Anisur Rahman, Li-Minn Ang, Sr., Member, IEEE, Kah Phooi Seng, Sr., Member, IEEE
 
 Authors:
 Md Anisur Rahman is with School of Computing & Mathematics, Charles Sturt University, NSW 2795, Australia. Email: arahman@csu.edu.au;
