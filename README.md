@@ -29,5 +29,5 @@ The first two columns of the data.txt are the values of attributes X and Y. The 
 3. An R source code is used to display the clusters. However, PDAutoClust also has a DisplayClust.java (based on JavaFx) file to display the clusters. The viualization using R looks better than Java Fx that's why I used R source code on Output.txt which is produced by PDAutoClust. Please check the file path in DisplayClust.java to make sure that program can read the file properly.
 
 4. RunMain.java contains the main method
-5. The program produce two files output.txt and Evaluation+datasetname.csv.
+5. The program produces two files namely output.txt and Evaluation+datasetname.csv.
 
