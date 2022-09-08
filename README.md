@@ -10,7 +10,7 @@ Steps:
 1. The PDAutoClust project is created using netbean 8.0.2 and JDK 8.
 2. Datasets folder contains the files for each dataset. Please change the files path in Dataset.java file. 
 
-The format of attNameInfo.txt file is discussed below:
+The format of a attNameInfo.txt file is discussed below:
 
 n,X,0.584136353,0.793126712 
 
@@ -22,9 +22,7 @@ The format of attNameInfo.txt file indicates that the dataset has two numerical 
 
 n indicates the type of the attribute is numerical and c indicates the type of the attribute is categorical. X is the name of the attribute, 0.584136353 is the minimum value of X and 0.793126712 is the maximum value of X.
 
-
-
-The format of data.txt file is discussed below:
+The format of a data.txt file is discussed below:
 
 The first two columns of the data.txt are the values of attributes X and Y. The last column contains the label of each record.
 
