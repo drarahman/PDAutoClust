@@ -22,8 +22,9 @@ n indicates the type of the attribute is numerical and c indicates the type of t
 
 
 The format of data.txt file is discussed below:
-The first two columns of the data.txt are the values of X and Y. The last column is label of each record.
 
-3. An R source code is used to display the cluster. However, PDAutoClust also has a DisplayClust.Java (based on JavaFx) file to display the clusters. The viualization using R looks better than Java Fx that's why I used R source code on Output.txt produced by PDAutoClust.
+The first two columns of the data.txt are the values of attributes X and Y. The last column contains the label of each record.
+
+3. An R source code is used to display the clusters. However, PDAutoClust also has a DisplayClust.java (based on JavaFx) file to display the clusters. The viualization using R looks better than Java Fx that's why I used R source code on Output.txt which is produced by PDAutoClust.
 
 
