@@ -86,25 +86,25 @@ public class PDAutoClust{
     
     //write clusters in a file and display in a GUI
     public void writeClusteringOutput(double[][]data, String[]attrType, String[] attrName, Vector<Integer>[] recordInCluster, String Path, String Mode, String dataset){
-        StringBuilder ClusterWithRecord=new StringBuilder();
+        StringBuilder clusterWithRecord=new StringBuilder();
         for(int i=0;i<attrType.length;i++){
-            ClusterWithRecord.append(attrName[i]);
-            ClusterWithRecord.append(",");            
+            clusterWithRecord.append(attrName[i]);
+            clusterWithRecord.append(",");            
         }
   
         
-        ClusterWithRecord.append("Cluster");
-        ClusterWithRecord.append("\n");
+        clusterWithRecord.append("Cluster");
+        clusterWithRecord.append("\n");
  
         for(int i=0;i<recordInCluster.length-1;i++){
             if(!recordInCluster[i].isEmpty()){
                 for(int j=0;j<recordInCluster[i].size();j++){
                     for(int a=0; a<data[0].length-1;a++){
-                        ClusterWithRecord.append(data[recordInCluster[i].elementAt(j)][a]);
-                        ClusterWithRecord.append(" ");
+                        clusterWithRecord.append(data[recordInCluster[i].elementAt(j)][a]);
+                        clusterWithRecord.append(" ");
                     }
-                    ClusterWithRecord.append(i+1);
-                    ClusterWithRecord.append("\n");
+                    clusterWithRecord.append(i+1);
+                    clusterWithRecord.append("\n");
                 }
             }            
         }
@@ -113,24 +113,24 @@ public class PDAutoClust{
         if(!recordInCluster[recordInCluster.length-1].isEmpty()){
             for(int j=0;j<recordInCluster[recordInCluster.length-1].size()-1;j++){
                 for(int a=0; a<data[0].length-1;a++){
-                    ClusterWithRecord.append(data[recordInCluster[recordInCluster.length-1].elementAt(j)][a]);
-                    ClusterWithRecord.append(" ");
+                    clusterWithRecord.append(data[recordInCluster[recordInCluster.length-1].elementAt(j)][a]);
+                    clusterWithRecord.append(" ");
                 }
-                ClusterWithRecord.append(recordInCluster.length);
-                ClusterWithRecord.append("\n");
+                clusterWithRecord.append(recordInCluster.length);
+                clusterWithRecord.append("\n");
             }
             
 
             for(int a=0; a<data[0].length-1;a++){               
-                ClusterWithRecord.append(data[recordInCluster[recordInCluster.length-1].elementAt(recordInCluster[recordInCluster.length-1].size()-1)][a]);
-                ClusterWithRecord.append(" ");
+                clusterWithRecord.append(data[recordInCluster[recordInCluster.length-1].elementAt(recordInCluster[recordInCluster.length-1].size()-1)][a]);
+                clusterWithRecord.append(" ");
             }
-            ClusterWithRecord.append(recordInCluster.length);
+            clusterWithRecord.append(recordInCluster.length);
 
         }            
         try{
             BufferedWriter fw = new BufferedWriter(new FileWriter(new File(Path+"Output.txt")));
-            fw.write(ClusterWithRecord.toString());
+            fw.write(clusterWithRecord.toString());
             fw.flush();
             fw.close();
         }
@@ -144,10 +144,10 @@ public class PDAutoClust{
     //calculate Kernel Density
     public double[] multivariateKernelDensity(double [][] r2rD, double[] kernelBandwidth, double[][]data, String[]attrType){
        
-        double [] KernelDensity=new double[r2rD.length];   
+        double [] kernelDensity=new double[r2rD.length];   
  
         double KDE=0;
-        double PIConstant=Math.pow(1/Math.sqrt(2*3.1415),attrType.length);
+        double piConstant=Math.pow(1/Math.sqrt(2*3.1415),attrType.length);
  
         double distance=0;
         double bandwidth=0;    
@@ -164,7 +164,7 @@ public class PDAutoClust{
 
                 }                
 
-                KDB=PIConstant*(Math.pow(2.718281, distance));
+                KDB=piConstant*(Math.pow(2.718281, distance));
                 
                 for(int b=0;b<kernelBandwidth.length;b++){
                   KDB=KDB/kernelBandwidth[b]; 
@@ -177,58 +177,58 @@ public class PDAutoClust{
             KDE=(1.0/data.length)*KDE;
  
  
-            KernelDensity[i]=KDE;
+            kernelDensity[i]=KDE;
         }
         
-        return KernelDensity;
+        return kernelDensity;
     }
     
     //calculate kernel bandwidth
     double[] kernelBandwidth(double[][] data, String[]attrType){
-        double []KernelBandwidth=new double[attrType.length];
+        double []kernelBandwidth=new double[attrType.length];
         
-        double []Stdev=standardDeviation(data, attrType);      
+        double []stdev=standardDeviation(data, attrType);      
  
         for(int a=0;a<attrType.length;a++){
             if("n".equals(attrType[a])){               
-                KernelBandwidth[a]=Stdev[a]*Math.pow((4.0/((attrType.length+2)*data.length)),(1.0/(attrType.length+4.0)));               
+                kernelBandwidth[a]=stdev[a]*Math.pow((4.0/((attrType.length+2)*data.length)),(1.0/(attrType.length+4.0)));               
           
             }
         }      
         
 
-        return KernelBandwidth;
+        return kernelBandwidth;
     }
     
     //calculate standard deviation
     double[] standardDeviation(double[][] data, String[]attrType){      
-        double []Stdev=new double[attrType.length];
+        double []stdev=new double[attrType.length];
  
-        double Average=0;
+        double average=0;
         double sd = 0;
  
         for(int a=0;a<attrType.length;a++){
             if("n".equals(attrType[a])){
-            Average=0;
+            average=0;
             for(int i=0;i<data.length;i++){
-                Average+=data[i][a];           
+                average+=data[i][a];           
             }
-            Average=Average/data.length;
+            average=average/data.length;
  
             sd = 0;
             for(int i=0; i<data.length; i++){
-                sd += Math.pow((data[i][a] - Average),2);
+                sd += Math.pow((data[i][a] - average),2);
             }
-            Stdev[a]=Math.sqrt(sd/data.length);
+            stdev[a]=Math.sqrt(sd/data.length);
             }
         }
  
  
-        return Stdev;
+        return stdev;
     }
     //calculate euclidean distance
     public double[][] r2rEuclideanDistance(double[][] data, String[] attrType, String Path, String Mode){
-        double [][] R2RD=new double[data.length][data.length];
+        double [][] r2rD=new double[data.length][data.length];
         double distance=0;
 
         for(int i=0;i<data.length;i++){
@@ -239,34 +239,34 @@ public class PDAutoClust{
                         distance+=(Math.pow((data[i][k]-data[j][k]),2));
                     }
                     distance=Math.sqrt(distance);
-                    R2RD[i][j]=distance; 
+                    r2rD[i][j]=distance; 
                 }
             }
         }
  
-        for(int i=0;i<R2RD.length;i++){
-            for(int j=0;j<R2RD.length;j++){
+        for(int i=0;i<r2rD.length;i++){
+            for(int j=0;j<r2rD.length;j++){
                 if(j>i){
-                    R2RD[j][i]=R2RD[i][j];
+                    r2rD[j][i]=r2rD[i][j];
                 }
             }           
         }         
  
-        return R2RD;
+        return r2rD;
     }
          
     //calculate Kernel Similarity
     public double[][] kernelSimilarity(double [][] r2rD, double[]kernelDensity){
-        double [][] KernelSimilarity=new double[kernelDensity.length][kernelDensity.length];   
+        double [][] kernelSimilarity=new double[kernelDensity.length][kernelDensity.length];   
 
         for(int i=0;i<kernelDensity.length;i++){
             for(int j=0;j<kernelDensity.length;j++){               
-                KernelSimilarity[i][j]=(1.0+Math.abs(kernelDensity[i]-kernelDensity[j]))*r2rD[i][j];             
+                kernelSimilarity[i][j]=(1.0+Math.abs(kernelDensity[i]-kernelDensity[j]))*r2rD[i][j];             
             }           
         }
 
 
-        return KernelSimilarity;
+        return kernelSimilarity;
     }
  
     //PDAutoClust core method
