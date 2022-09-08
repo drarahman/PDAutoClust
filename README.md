@@ -1,8 +1,8 @@
 PDAutoClust: An Automated Identification Approach for Partial Discharge Detection Using Density Based Clustering Without User Inputs
 Md Anisur Rahman, Li-Minn Ang, Sr., Member, IEEE, Kah Phooi Seng, Sr., Member, IEEE
 
-Md Anisur Rahman is with School of Computing & Mathematics, Charles Sturt University, NSW 2795, Australia. Email: arahman@csu.edu.au
-Li-minn Ang is with School of Science and Engineering, University of the Sunshine Coast, Australia. E-mail: lang@usc.edu.au
+Md Anisur Rahman is with School of Computing & Mathematics, Charles Sturt University, NSW 2795, Australia. Email: arahman@csu.edu.au;
+Li-minn Ang is with School of Science and Engineering, University of the Sunshine Coast, Australia. E-mail: lang@usc.edu.au;
 Kah Phooi Seng is with School of AI & Advanced Computing, Xi’an Jiaotong Liverpool University, Suzhou 215123, China and School of Computer Science, Queensland University of Technology, Brisbane, QLD 4000, Australia. E-mail: kahphooi.seng@qut.edu.au
 
 Steps:
