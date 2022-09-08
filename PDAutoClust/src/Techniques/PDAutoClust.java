@@ -352,24 +352,24 @@ public class PDAutoClust{
         densityInfo.append("UNS Density");
         densityInfo.append("\n");   
 
-        boolean Status=false;
+        boolean status=false;
 
         for(int i=0;i<recordIndex.size();i++){ //will calculate for every record
             count=0;         
             for(int j=0;j<recordIndex.size();j++){ // every record    
                 if(i!=j){
-                    Status=true;
+                    status=true;
                     distance=r2rDistance[recordIndex.elementAt(i)][recordIndex.elementAt(j)];                  
                     for(int k=0;k<recordIndex.size();k++){ // checking if j has minimum distance with any k, if not then j has the minimum distance with i
                         if(j!=k){
                             if(r2rDistance[recordIndex.elementAt(k)][recordIndex.elementAt(j)]<distance){
-                                Status=false;
+                                status=false;
                                 break;
                             }
                         }
                     }
 
-                    if(Status==true){
+                    if(status==true){
                        count++;
                     }
                 }             
@@ -420,52 +420,52 @@ public class PDAutoClust{
     //find the veins of the clusters
     public Vector<Integer> findVeinsOfNeighborBasedOnUNS(Map<Integer, Double> kernelDensityMap, double[][] kernelSimilarity, double[][] r2rDistance, Vector<Integer> neighborRecord, Vector<Integer> recordIndex){
         Vector<Integer> neighborOfNeighbor=new Vector(); 
-        boolean Status=true;
-        boolean ConnectionStatus=true;
+        boolean status=true;
+        boolean connectionStatus=true;
         double min=0;
-        int NeighborIndex=0;
+        int neighborIndex=0;
         double KS=0;        
         for(int j=0;j<recordIndex.size();j++){
             if(visitStatus.get(recordIndex.elementAt(j))==false){
                 if(!Objects.equals(recordIndex.elementAt(j), neighborRecord.elementAt(0))){
                     min=r2rDistance[recordIndex.elementAt(j)][neighborRecord.elementAt(0)];
-                    NeighborIndex=neighborRecord.elementAt(0);                    
+                    neighborIndex=neighborRecord.elementAt(0);                    
                     for(int c=1;c<neighborRecord.size();c++){ //which record of neighbour has the minimum distance with record j
                         if(!Objects.equals(recordIndex.elementAt(j), neighborRecord.elementAt(c))){
                             if(r2rDistance[recordIndex.elementAt(j)][neighborRecord.elementAt(c)]<min){
                                 min=r2rDistance[recordIndex.elementAt(j)][neighborRecord.elementAt(c)];
-                                NeighborIndex=neighborRecord.elementAt(c);
+                                neighborIndex=neighborRecord.elementAt(c);
                             }
                         }
                     }
                 }
-                Status=true; 
-                ConnectionStatus=true;
+                status=true; 
+                connectionStatus=true;
                 for(int k=0;k<recordIndex.size();k++){ // distance between record j and any other record is not less than min
                     if(!Objects.equals(recordIndex.elementAt(j), recordIndex.elementAt(k))){                                               
-                        if(!Objects.equals(recordIndex.elementAt(k), NeighborIndex)){
+                        if(!Objects.equals(recordIndex.elementAt(k), neighborIndex)){
                             if(r2rDistance[recordIndex.elementAt(j)][recordIndex.elementAt(k)]<min){
-                                Status=false;                          
+                                status=false;                          
                                 break;
                             } 
                         }
                     }
                 }
-                if(Status==false){
-                    if(NeighborIndex!=recordIndex.elementAt(j)){ //when j is not connected 
-                        KS=kernelSimilarity[NeighborIndex][recordIndex.elementAt(j)];
-                        if((kernelDensityMap.get(NeighborIndex)<kernelDensityMap.get(recordIndex.elementAt(j)))){
+                if(status==false){
+                    if(neighborIndex!=recordIndex.elementAt(j)){ //when j is not connected 
+                        KS=kernelSimilarity[neighborIndex][recordIndex.elementAt(j)];
+                        if((kernelDensityMap.get(neighborIndex)<kernelDensityMap.get(recordIndex.elementAt(j)))){
                             for(int s=0;s<kernelSimilarity.length;s++){
                                 if(visitStatus.get(s)==false){
                                     if(s!=recordIndex.elementAt(j)){
                                         if(kernelSimilarity[recordIndex.elementAt(j)][s]<KS){
-                                            ConnectionStatus=false;
+                                            connectionStatus=false;
                                             break;
                                         }
                                     }
                                 }
                             }
-                            if(ConnectionStatus==true){                                
+                            if(connectionStatus==true){                                
                                 neighborOfNeighbor.addElement(recordIndex.elementAt(j));
                             }
                         }
@@ -703,11 +703,6 @@ public class PDAutoClust{
             int maxUNSRecord=0;
             double maxUNSBasedRadius=0;
 
-            Vector<Integer>[] RecordInClusterSharedZone= new Vector[finalCluster.length];
-            for(int i=0;i<RecordInClusterSharedZone.length;i++){
-                RecordInClusterSharedZone[i]=new Vector();
-            } 
-
             
             for(int i=0;i<finalCluster.length;i++){
                 max=0;  
@@ -800,11 +795,7 @@ public class PDAutoClust{
         int tempMax=0;
         int maxIndex=0;        
         int maxUNSRecord=0;
-        double maxUNSBasedRadius=0;       
-        Vector<Integer>[] RecordInClusterSharedZone= new Vector[finalCluster.length];
-        for(int i=0;i<RecordInClusterSharedZone.length;i++){
-            RecordInClusterSharedZone[i]=new Vector();
-        }        
+        double maxUNSBasedRadius=0;      
 
         for(int i=0;i<finalCluster.length;i++){
             max=0;  
