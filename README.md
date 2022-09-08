@@ -6,7 +6,7 @@ Md Anisur Rahman is with School of Computing & Mathematics, Charles Sturt Univer
 Li-minn Ang is with School of Science and Engineering, University of the Sunshine Coast, Australia. E-mail: lang@usc.edu.au;
 Kah Phooi Seng is with School of AI & Advanced Computing, Xi’an Jiaotong Liverpool University, Suzhou 215123, China and School of Computer Science, Queensland University of Technology, Brisbane, QLD 4000, Australia. E-mail: kahphooi.seng@qut.edu.au
 
-Steps:
+Information:
 1. The PDAutoClust project is created using netbean 8.0.2 and JDK 8.
 2. Datasets folder contains the files for each dataset. Please change the files path in Dataset.java file. 
 
