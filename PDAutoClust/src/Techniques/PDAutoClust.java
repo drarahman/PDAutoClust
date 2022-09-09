@@ -89,7 +89,7 @@ public class PDAutoClust{
         StringBuilder clusterWithRecord=new StringBuilder();
         for(int i=0;i<attrType.length;i++){
             clusterWithRecord.append(attrName[i]);
-            clusterWithRecord.append(",");            
+            clusterWithRecord.append(" ");            
         }
   
         
