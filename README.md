@@ -7,7 +7,13 @@ Kah Phooi Seng is with School of AI & Advanced Computing, Xi’an Jiaotong Liver
 
 Information:
 1. The PDAutoClust project is created using netbean 8.0.2 and JDK 8.
-2. Datasets folder contains the files for each dataset. Please change the files path in Dataset.java file. 
+2. Dataset folder contains the files for each dataset. Please change the path for the files in Dataset.java. 
+
+    public static String dataPATH="C:\\Research\\Datasets\\Corona_bobina_1\\";    
+    public static String outputPath="C:\\Research\\PDAutoClust\\Evaluation\\Corona_bobina_1\\";
+    public static String Data=dataPATH+"data.txt";        
+    public static String attributeName=dataPATH+"attNameInfo.txt";
+    
 
 The format of a attNameInfo.txt file is discussed below:
 
