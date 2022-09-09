@@ -296,7 +296,7 @@ public class PDAutoClust{
             }
             recordIndexInCluster=new Vector();
             densestRecord=findNotVisitedUCNDensestRecord(unsDensityMap, visitStatus, recordIndex);
-            neighborRecord=findNeighborOfDensestRecordWithoutRadius(r2rDistance, densestRecord, recordIndex);            
+            neighborRecord=findNeighborOfDensestRecord(r2rDistance, densestRecord, recordIndex);            
             if(neighborRecord.size()<2){
                 break;
             }
@@ -872,7 +872,7 @@ public class PDAutoClust{
     }
     
     //find the neighbors of the densest record
-    public Vector<Integer> findNeighborOfDensestRecordWithoutRadius(double[][] r2rDistance, int maxIndex, Vector<Integer> recordIndex){
+    public Vector<Integer> findNeighborOfDensestRecord(double[][] r2rDistance, int maxIndex, Vector<Integer> recordIndex){
         Vector<Integer> neighborRecord=new Vector();
         double distance=0;       
         boolean status=true;
