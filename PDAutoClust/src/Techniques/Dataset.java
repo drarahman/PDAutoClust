@@ -24,13 +24,13 @@ import java.io.IOException;
  * Dataset class
  */
 public class Dataset{  
-     //Please change the file path, if needed
-    public static String dataPATH="C:\\Research\\Datasets\\Corona_bobina_1\\";    
-    public static String outputPath="C:\\Research\\PDAutoClust\\Evaluation\\Corona_bobina_1\\";
+    //Please change the file path, if needed 
+    public static String dataPATH="C:\\Research\\Datasets\\Partial Discharge\\Dataset\\CoronaDischarge\\";    
+    public static String outputPath="C:\\Research\\PDAutoClust\\Evaluation\\PDAutoClust\\CoronaDischarge\\";
     public static String Data=dataPATH+"data.txt";        
     public static String attributeName=dataPATH+"attNameInfo.txt";
       
-    //Finds number of records in a dataset
+    //This method finds number of records in a dataset
     int numberOfRecord(String datafile) throws FileNotFoundException, IOException{             
         String recordFile="";         
         int recordNumber=0;        
@@ -44,7 +44,7 @@ public class Dataset{
         
         return recordNumber;
     }
-    //Finds number of attributes in a dataset
+    //This method finds number of attributes in a dataset
     int numberOfAttribute(String datafile) throws FileNotFoundException, IOException{  
         String attributeFile="";      
         int numberOfAttribute=0;       
