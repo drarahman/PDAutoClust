@@ -7,7 +7,7 @@ Kah Phooi Seng is with School of AI & Advanced Computing, Xi’an Jiaotong Liver
 
 Information:
 1. The PDAutoClust project is created using netbean 8.0.2 and JDK 8.
-2. Dataset folder contains the files for each dataset. Please change the path for the files in Dataset.java. 
+2. Dataset contains four folders for four datasets. Each dataset folder has two files namely attNameInfo.txt and data.txt. Please check the file path in Dataset.java. 
 
     public static String dataPATH="C:\\Research\\Datasets\\Corona_bobina_1\\";    
     public static String outputPath="C:\\Research\\PDAutoClust\\Evaluation\\Corona_bobina_1\\";
@@ -34,5 +34,5 @@ The first two columns of the data.txt are the values of attributes X and Y. The 
 3. An R source code is used to display the clusters. However, PDAutoClust also has a DisplayClust.java (based on JavaFx) file to display the clusters. The viualization using R looks better than Java Fx that's why I used R source code on Output.txt which is produced by PDAutoClust. Please check the file path in DisplayClust.java to make sure that program can read the file properly.
 
 4. RunMain.java contains the main method
-5. The program produces two files namely output.txt and Evaluation+datasetname.csv.
+5. The program produces two files namely output.txt and Evaluation.csv.
 
