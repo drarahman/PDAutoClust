@@ -24,7 +24,7 @@ import java.io.IOException;
  * Dataset class
  */
 public class Dataset{  
-    //Please change the files path, if needed 
+     //Please change the file path, if needed
     public static String dataPATH="C:\\Research\\Datasets\\Corona_bobina_1\\";    
     public static String outputPath="C:\\Research\\PDAutoClust\\Evaluation\\Corona_bobina_1\\";
     public static String Data=dataPATH+"data.txt";        
