@@ -296,7 +296,7 @@ public class PDAutoClust{
             }
             recordIndexInCluster=new Vector();
             densestRecord=findNotVisitedUCNDensestRecord(unsDensityMap, visitStatus, recordIndex);
-            neighborRecord=findNeighborOfDensestRecord(r2rDistance, densestRecord, recordIndex);            
+            neighborRecord=findNeighborOfDensestRecordWithoutRadius(r2rDistance, densestRecord, recordIndex);            
             if(neighborRecord.size()<2){
                 break;
             }
@@ -576,24 +576,24 @@ public class PDAutoClust{
             }
             finalMergingSet = new HashSet<Integer>();           
             for(int s=0;s<sharedZoneInfo.length;s++){   //storing the distinct cluster in the FinalMergingSet       
-                finalMergingSet.add((int)sharedZoneInfo[s][7]);        
+                finalMergingSet.add((int)sharedZoneInfo[s][2]);        
             }
             if(finalMergingSet.size()>2){
                 while(search==true){
                     Index=0;               
                     for(int i=0;i<sharedZoneInfo.length;i++){ //the following block of code finds the cluster that has the max shared region with another cluster SharedZoneInfo[i][7]
-                        if(mergeAllSet.contains((int)sharedZoneInfo[i][0])==false && mergeAllSet.contains((int)sharedZoneInfo[i][7])==false){
-                            if(sharedZoneInfo[i][9]>maxShared){
-                                maxShared=sharedZoneInfo[i][9];
+                        if(mergeAllSet.contains((int)sharedZoneInfo[i][0])==false && mergeAllSet.contains((int)sharedZoneInfo[i][2])==false){
+                            if(sharedZoneInfo[i][3]>maxShared){
+                                maxShared=sharedZoneInfo[i][3];
                                 Index=i;
                             }
                         }
                     }
-                    if(mergeAllSet.contains((int)sharedZoneInfo[Index][0])==false && mergeAllSet.contains((int)sharedZoneInfo[Index][7])==false){
+                    if(mergeAllSet.contains((int)sharedZoneInfo[Index][0])==false && mergeAllSet.contains((int)sharedZoneInfo[Index][2])==false){
                         mergeSet.add((int)sharedZoneInfo[Index][0]);
-                        mergeSet.add((int)sharedZoneInfo[Index][7]);                    
+                        mergeSet.add((int)sharedZoneInfo[Index][2]);                    
                         mergeAllSet.add((int)sharedZoneInfo[Index][0]); //MergeAllSet helps to identify if the cluster is already merged
-                        mergeAllSet.add((int)sharedZoneInfo[Index][7]); 
+                        mergeAllSet.add((int)sharedZoneInfo[Index][2]); 
                     }
                     if(mergeSet.size()>0){ //checking if an iteration found some clusters to be merged
                         mergingCluster[tempIndex].addAll(mergeSet); 
@@ -626,12 +626,12 @@ public class PDAutoClust{
                                     recordInClusterSharedZone[cIndex].addElement(recordInCluster[mergingCluster[i].elementAt(j)].elementAt(c)); 
                                 }
                             }
-                            if(sharedZoneInfo[mergingCluster[i].elementAt(0)][10]>sharedZoneInfo[mergingCluster[i].elementAt(1)][10]){
-                                radiusForSharedRegion.add(cIndex, sharedZoneInfo[mergingCluster[i].elementAt(0)][10]); 
+                            if(sharedZoneInfo[mergingCluster[i].elementAt(0)][4]>sharedZoneInfo[mergingCluster[i].elementAt(1)][4]){
+                                radiusForSharedRegion.add(cIndex, sharedZoneInfo[mergingCluster[i].elementAt(0)][4]); 
                             }
 
                             else{
-                                radiusForSharedRegion.add(cIndex, sharedZoneInfo[mergingCluster[i].elementAt(1)][10]); 
+                                radiusForSharedRegion.add(cIndex, sharedZoneInfo[mergingCluster[i].elementAt(1)][4]); 
                             }
                             cIndex++;
                         }                    
@@ -642,7 +642,7 @@ public class PDAutoClust{
                             for(int j=0;j<recordInCluster[i].size();j++){
                                recordInClusterSharedZone[cIndex].addElement(recordInCluster[i].elementAt(j)); 
                             }
-                            radiusForSharedRegion.add(cIndex, sharedZoneInfo[i][10]);
+                            radiusForSharedRegion.add(cIndex, sharedZoneInfo[i][4]);
                             cIndex++;
                         }                   
                     }
@@ -669,7 +669,7 @@ public class PDAutoClust{
                     recordInClusterSharedZone[1].addElement(recordInCluster[(int)sharedZoneInfo[1][0]].elementAt(j));
                 }               
                 for(int i=2;i<sharedZoneInfo.length;i++){
-                    if((int)sharedZoneInfo[i][7]==0){
+                    if((int)sharedZoneInfo[i][2]==0){
                         for(int j=0;j<recordInCluster[i].size();j++){
                             recordInClusterSharedZone[0].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
                         }
@@ -689,30 +689,16 @@ public class PDAutoClust{
     }
     //find shared region information
     public double[][] findSharedRegion(double[][] r2rDistance, Vector<Integer>[] finalCluster, Map <Integer, Integer> unsDensityMap, String Path, String Mode, int itertaion){
-            double [][] sharedZoneInfo= new double[finalCluster.length][13]; 
-            int maxUNS=0;
-            double max=0;     
-            double min=0;
+            double [][] sharedZoneInfo= new double[finalCluster.length][5]; 
             double average=0;
             int total=0;
-            int csize=0;
-            int Max=0;
+            int max=0;
             int tempMax=0;
             int maxIndex=0;
-
-            int maxUNSRecord=0;
-            double maxUNSBasedRadius=0;
-
             
             for(int i=0;i<finalCluster.length;i++){
-                max=0;  
-                min=0;
-                maxUNS=0;
                 average=0;
                 total=0;
-                csize=finalCluster[i].size();   
-                maxUNSBasedRadius=0;
-
                 //average radius
                 if(finalCluster[i].size()>=2){
                     for(int j=0;j<finalCluster[i].size()-1;j++){
@@ -724,85 +710,48 @@ public class PDAutoClust{
                 }
                 average =(average/total);                     
                 sharedZoneInfo[i][0]=i;
-                sharedZoneInfo[i][1]=csize;
-                sharedZoneInfo[i][2]=maxUNS;
-                sharedZoneInfo[i][3]=max;
-                sharedZoneInfo[i][4]=average;
-                sharedZoneInfo[i][5]=min;
+                sharedZoneInfo[i][1]=average;
 
                 //find maximum shared region with another cluster             
-                Max=0;
+                max=0;
                 maxIndex=0;
                 for(int k=0;k<finalCluster.length;k++){
                      if(i!=k){
                          tempMax=0; 
                          for(int j=0;j<finalCluster[i].size();j++){// the cluster for which we need to find shared region
                             for(int c=0;c<finalCluster[k].size();c++){ // another to which the shared region is the maximum
-                                if(r2rDistance[finalCluster[i].elementAt(j)][finalCluster[k].elementAt(c)]<sharedZoneInfo[i][4]){
+                                if(r2rDistance[finalCluster[i].elementAt(j)][finalCluster[k].elementAt(c)]<sharedZoneInfo[i][1]){
                                     tempMax++;
                                 }                        
                             }
                          }
-                        if(tempMax>Max){
+                        if(tempMax>max){
                             maxIndex=k;
-                            Max=tempMax;
+                            max=tempMax;
                         }
                     }               
                 }
-
-                //The maximum UNS based radius of a cluster
-                if(finalCluster[i].size()>=2){
-                    maxUNS=unsDensityMap.get(finalCluster[i].elementAt(0));
-                    maxUNSRecord=finalCluster[i].elementAt(0);
-                    for(int j=1;j<finalCluster[i].size();j++){   
-                        if(unsDensityMap.get(finalCluster[i].elementAt(j))>=maxUNS){
-                            maxUNS=unsDensityMap.get(finalCluster[i].elementAt(j)); 
-                            maxUNSRecord=finalCluster[i].elementAt(j);
-                        }               
-                    }
-
-                    for(int r=0;r<finalCluster[i].size();r++){
-                        if(r2rDistance[finalCluster[i].elementAt(r)][maxUNSRecord]>maxUNSBasedRadius){
-                            maxUNSBasedRadius=r2rDistance[finalCluster[i].elementAt(r)][maxUNSRecord];
-                        }
-
-                    }
-                }
-
-                sharedZoneInfo[i][7]=maxIndex;
-                sharedZoneInfo[i][8]=finalCluster[maxIndex].size();
-                sharedZoneInfo[i][9]=Max;  
-                sharedZoneInfo[i][10]=average; 
-                sharedZoneInfo[i][11]=maxUNSBasedRadius; 
-                sharedZoneInfo[i][12]=maxUNSRecord; 
-            }     
+                sharedZoneInfo[i][2]=maxIndex;  
+                sharedZoneInfo[i][3]=max;  
+                sharedZoneInfo[i][4]=average; 
+            } 
+           
            
         return sharedZoneInfo;       
     }
 
-    //find shared region informtion
+    //find the shared region information
     public double[][] findSharedRegionNext(double[][] r2rDistance, Vector<Integer>[] finalCluster, Map <Integer, Integer> unsDensityMap, String Path, String Mode, int itertaion, Vector<Double> radiusForSharedRegion){
-        double [][] sharedZoneInfo= new double[finalCluster.length][13]; 
-        int maxUNS=0;
-        double max=0;     
-        double min=0;
+        double [][] sharedZoneInfo= new double[finalCluster.length][5]; 
         double average=0;
         int total=0;
-        int csize=0;
-        int Max=0;
+        int max=0;
         int tempMax=0;
-        int maxIndex=0;        
-        int maxUNSRecord=0;
-        double maxUNSBasedRadius=0;      
-
+        int maxIndex=0; 
+        
         for(int i=0;i<finalCluster.length;i++){
-            max=0;  
-            min=0;
-            maxUNS=0;
             average=0;
             total=0;
-            csize=finalCluster[i].size();
-
             //average radius
             if(finalCluster[i].size()>=2){
                 for(int j=0;j<finalCluster[i].size()-1;j++){
@@ -813,66 +762,38 @@ public class PDAutoClust{
                 }
             }
             average =(average/total);                     
-            //                      0           1                   2               3               4                   5                   6                   7                               8                                       9
-            //String Info=      "Cluster"+","+"Cluster Size"+","+"Max UNS"+","+"Max Radius"+","+"Average Radius"+","+"Min Radius"+","+"SharedRegionSizeWithAllCluster"+","+"Max Shared Region Cluster"+","+"Max Shared Region Cluster Size"+","+"Shared Region Size"+"\n";
             sharedZoneInfo[i][0]=i;
-            sharedZoneInfo[i][1]=csize;
-            sharedZoneInfo[i][2]=maxUNS;
-            sharedZoneInfo[i][3]=max;
-            sharedZoneInfo[i][4]=average;
-            sharedZoneInfo[i][5]=min;
+            sharedZoneInfo[i][1]=average;
 
             //find maximum shared region with another cluster             
-            Max=0;
+            max=0;
             maxIndex=0;
             for(int k=0;k<finalCluster.length;k++){
                  if(i!=k){
                      tempMax=0; 
                      for(int j=0;j<finalCluster[i].size();j++){// the cluster for which we need to find shared region
                         for(int c=0;c<finalCluster[k].size();c++){ // another to which the shared region is the maximum
-                            if(r2rDistance[finalCluster[i].elementAt(j)][finalCluster[k].elementAt(c)]<sharedZoneInfo[i][4]){                            
+                            if(r2rDistance[finalCluster[i].elementAt(j)][finalCluster[k].elementAt(c)]<sharedZoneInfo[i][1]){                            
                                 tempMax++;                                
                             }                        
                         }
                      }
-                    if(tempMax>Max){
+                    if(tempMax>max){
                         maxIndex=k;
-                        Max=tempMax;
+                        max=tempMax;
                     }
                 }               
             }
-
-            //The maximum UNS based radius of a cluster
-            if(finalCluster[i].size()>=2){
-                maxUNS=unsDensityMap.get(finalCluster[i].elementAt(0));
-                maxUNSRecord=finalCluster[i].elementAt(0);
-                for(int j=1;j<finalCluster[i].size();j++){   
-                    if(unsDensityMap.get(finalCluster[i].elementAt(j))>=maxUNS){
-                        maxUNS=unsDensityMap.get(finalCluster[i].elementAt(j)); 
-                        maxUNSRecord=finalCluster[i].elementAt(j);
-                    }               
-                }
-
-                for(int r=0;r<finalCluster[i].size();r++){
-                    if(r2rDistance[finalCluster[i].elementAt(r)][maxUNSRecord]>maxUNSBasedRadius){
-                        maxUNSBasedRadius=r2rDistance[finalCluster[i].elementAt(r)][maxUNSRecord];
-                    }                    
-                }
-            } 
-
-            sharedZoneInfo[i][7]=maxIndex;
-            sharedZoneInfo[i][8]=finalCluster[maxIndex].size();
-            sharedZoneInfo[i][9]=Max;  
-            sharedZoneInfo[i][10]=radiusForSharedRegion.elementAt(i); 
-            sharedZoneInfo[i][11]=maxUNSBasedRadius; 
-            sharedZoneInfo[i][12]=maxUNSRecord; 
+            sharedZoneInfo[i][2]=maxIndex;        
+            sharedZoneInfo[i][3]=max;  
+            sharedZoneInfo[i][4]=radiusForSharedRegion.elementAt(i); 
         }        
       
         return sharedZoneInfo;       
     }
     
     //find the neighbors of the densest record
-    public Vector<Integer> findNeighborOfDensestRecord(double[][] r2rDistance, int maxIndex, Vector<Integer> recordIndex){
+    public Vector<Integer> findNeighborOfDensestRecordWithoutRadius(double[][] r2rDistance, int maxIndex, Vector<Integer> recordIndex){
         Vector<Integer> neighborRecord=new Vector();
         double distance=0;       
         boolean status=true;
