@@ -578,7 +578,7 @@ public class PDAutoClust{
             for(int s=0;s<sharedZoneInfo.length;s++){   //storing the distinct cluster in the FinalMergingSet       
                 finalMergingSet.add((int)sharedZoneInfo[s][7]);        
             }
-            if(finalMergingSet.size()>2){ //need to replace with a new termination condition
+            if(finalMergingSet.size()>2){
                 while(search==true){
                     Index=0;               
                     for(int i=0;i<sharedZoneInfo.length;i++){ //the following block of code finds the cluster that has the max shared region with another cluster SharedZoneInfo[i][7]
@@ -687,7 +687,7 @@ public class PDAutoClust{
             
         return recordInClusterSharedZone; 
     }
-    //find the radius for shared region 
+    //find shared region information
     public double[][] findSharedRegion(double[][] r2rDistance, Vector<Integer>[] finalCluster, Map <Integer, Integer> unsDensityMap, String Path, String Mode, int itertaion){
             double [][] sharedZoneInfo= new double[finalCluster.length][13]; 
             int maxUNS=0;
@@ -775,14 +775,12 @@ public class PDAutoClust{
                 sharedZoneInfo[i][10]=average; 
                 sharedZoneInfo[i][11]=maxUNSBasedRadius; 
                 sharedZoneInfo[i][12]=maxUNSRecord; 
-
-            } 
-           
+            }     
            
         return sharedZoneInfo;       
     }
 
-    //find the radius for shared region 
+    //find shared region informtion
     public double[][] findSharedRegionNext(double[][] r2rDistance, Vector<Integer>[] finalCluster, Map <Integer, Integer> unsDensityMap, String Path, String Mode, int itertaion, Vector<Double> radiusForSharedRegion){
         double [][] sharedZoneInfo= new double[finalCluster.length][13]; 
         int maxUNS=0;
