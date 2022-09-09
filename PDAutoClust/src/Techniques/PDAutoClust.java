@@ -76,7 +76,7 @@ public class PDAutoClust{
         Evaluation.append(evaluationHeading);
         Evaluation.append("\n");
         Evaluation.append(result);
-        Mode="Evaluation-"+Mode+dataset;
+        Mode="Evaluation";
         writeResult(Path, Mode, Evaluation);
         
         //Write cluster info in an Output.txt file for visualization
@@ -136,7 +136,7 @@ public class PDAutoClust{
         }
         catch (IOException e) {
         }
-
+        //Display Clusters
         javafx.application.Application.launch(DisplayCluster.class);
         
     }
