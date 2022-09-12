@@ -24,7 +24,7 @@ public class Evaluation {
     public Evaluation(){
     
     }
-   //calculate f1 score    
+   //calculate f1 scores 
    public double f1Score(double [][]data, int [][] clusterClassValue){
         double[][] fm= new double[clusterClassValue.length][clusterClassValue[0].length];        
         double[][]precision=new double[clusterClassValue.length][clusterClassValue[0].length];
