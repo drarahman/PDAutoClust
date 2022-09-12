@@ -532,7 +532,7 @@ public class PDAutoClust{
         return recordInClusterFinal;       
     }
 
-    //Merge the clusters based on shared region
+    //Merge clusters
     public Vector<Integer>[] mergingCluster(double[][] data, String[]attrType, String[]attrName, String dataset, double[][] r2rDistance, Vector<Integer> recordIndex, Vector<Integer>[] recordInCluster, Map <Integer, Integer> unsDensityMap, String Path, String Mode){
         boolean mergeStatus=true;
         Vector<Integer>[] recordInClusterSharedZone= new Vector[recordInCluster.length];        
@@ -652,7 +652,37 @@ public class PDAutoClust{
                     }
                 }
                 else{
-                   mergeStatus=false; 
+                    recordInClusterSharedZone=new Vector[finalMergingSet.size()];               
+                    for(int i=0;i<recordInClusterSharedZone.length;i++){
+                        recordInClusterSharedZone[i]=new Vector();
+                    }
+                    for(int r=0;r<recordInClusterSharedZone.length;r++){
+                        if(r==0){
+                            for(int j=0;j<recordInCluster[0].size();j++){
+                                recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[0][0]].elementAt(j));
+                            }               
+                            for(int i=2;i<sharedZoneInfo.length;i++){
+                                if((int)sharedZoneInfo[i][2]==0){
+                                    for(int j=0;j<recordInCluster[i].size();j++){
+                                        recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                                    }
+                                }                   
+                            }
+                        }
+                        else{                        
+                            for(int j=0;j<recordInCluster[1].size();j++){
+                                recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[1][0]].elementAt(j));
+                            }
+                            for(int i=2;i<sharedZoneInfo.length;i++){
+                                if((int)sharedZoneInfo[i][2]!=0){
+                                    for(int j=0;j<recordInCluster[i].size();j++){
+                                        recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                                    }
+                                }                   
+                            }                        
+                        }
+                    }
+                    mergeStatus=false;
                 }
             }            
             else{
@@ -660,26 +690,34 @@ public class PDAutoClust{
                 for(int i=0;i<recordInClusterSharedZone.length;i++){
                     recordInClusterSharedZone[i]=new Vector();
                 }
-                for(int j=0;j<recordInCluster[0].size();j++){
-                    recordInClusterSharedZone[0].addElement(recordInCluster[(int)sharedZoneInfo[0][0]].elementAt(j));
-                }
-                for(int j=0;j<recordInCluster[1].size();j++){
-                    recordInClusterSharedZone[1].addElement(recordInCluster[(int)sharedZoneInfo[1][0]].elementAt(j));
-                }               
-                for(int i=2;i<sharedZoneInfo.length;i++){
-                    if((int)sharedZoneInfo[i][2]==0){
-                        for(int j=0;j<recordInCluster[i].size();j++){
-                            recordInClusterSharedZone[0].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                
+                for(int r=0;r<recordInClusterSharedZone.length;r++){
+                    if(r==0){
+                        for(int j=0;j<recordInCluster[0].size();j++){
+                            recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[0][0]].elementAt(j));
+                        }               
+                        for(int i=2;i<sharedZoneInfo.length;i++){
+                            if((int)sharedZoneInfo[i][2]==0){
+                                for(int j=0;j<recordInCluster[i].size();j++){
+                                    recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                                }
+                            }                   
                         }
                     }
-                    else{
-                        for(int j=0;j<recordInCluster[i].size();j++){
-                            recordInClusterSharedZone[1].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                    else{                        
+                        for(int j=0;j<recordInCluster[1].size();j++){
+                            recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[1][0]].elementAt(j));
                         }
-                    }                    
-                }              
-
-               mergeStatus=false; 
+                        for(int i=2;i<sharedZoneInfo.length;i++){
+                            if((int)sharedZoneInfo[i][2]!=0){
+                                for(int j=0;j<recordInCluster[i].size();j++){
+                                    recordInClusterSharedZone[r].addElement(recordInCluster[(int)sharedZoneInfo[i][0]].elementAt(j));
+                                }
+                            }                   
+                        }                        
+                    }
+                }
+                mergeStatus=false; 
             }
         }
             
@@ -775,7 +813,7 @@ public class PDAutoClust{
         int max=0;
         int tempMax=0;
         int maxIndex=0; 
-        
+        /*
         StringBuilder Info=new StringBuilder();
         Info.append("Cluster");
         Info.append(",");
@@ -790,7 +828,7 @@ public class PDAutoClust{
         Info.append("Radius for Shared Region");
         Info.append("\n"); 
         
-        
+        */
         for(int i=0;i<finalCluster.length;i++){
             average=0;
             total=0;
@@ -829,7 +867,7 @@ public class PDAutoClust{
             sharedZoneInfo[i][2]=maxIndex;        
             sharedZoneInfo[i][3]=max;  
             sharedZoneInfo[i][4]=radiusForSharedRegion.elementAt(i); 
-            
+            /*
             Info.append(i);
             Info.append(",");  
             Info.append(finalCluster[i].size());
@@ -845,6 +883,7 @@ public class PDAutoClust{
             
             Mode="Shared Region Information"+"_iteration_"+itertaion;
             writeResult(Path, Mode, Info);
+            */
         }        
       
         return sharedZoneInfo;       
