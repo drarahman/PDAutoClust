@@ -656,7 +656,7 @@ public class PDAutoClust{
                 }
             }            
             else{
-               recordInClusterSharedZone=new Vector[2];               
+                recordInClusterSharedZone=new Vector[finalMergingSet.size()];               
                 for(int i=0;i<recordInClusterSharedZone.length;i++){
                     recordInClusterSharedZone[i]=new Vector();
                 }
