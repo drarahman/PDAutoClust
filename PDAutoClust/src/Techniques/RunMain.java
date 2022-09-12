@@ -22,7 +22,7 @@ import java.util.StringTokenizer;
 
 /**
  *
- * Main Method class for PDAutoClust
+ * Main method class for PDAutoClust
  */
 public class RunMain{
     /**
