@@ -133,7 +133,7 @@ public class DisplayCluster extends Application{
         NumberAxis yAxis = new NumberAxis(yMin-yRange, yMax+yRange, 1);
         ScatterChart<Number,Number> plot = new ScatterChart<Number, Number>(xAxis, yAxis);           
 
-        // Plot all  clusters on the plot         
+        // Plot the clusters on the plot         
         for(int i=0;i<label.length;i++){
            plot.getData().add(clusterChart[i]); 
         }
