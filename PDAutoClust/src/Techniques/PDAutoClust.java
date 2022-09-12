@@ -731,7 +731,7 @@ public class PDAutoClust{
         int max=0;
         int tempMax=0;
         int maxIndex=0;       
-                
+        /*        
         StringBuilder Info=new StringBuilder();
         Info.append("Cluster");
         Info.append(",");
@@ -745,7 +745,7 @@ public class PDAutoClust{
         Info.append(",");         
         Info.append("Radius for Shared Region");
         Info.append("\n"); 
-        
+        */
         for(int i=0;i<finalCluster.length;i++){
             average=0;
             total=0;
@@ -784,7 +784,7 @@ public class PDAutoClust{
             sharedZoneInfo[i][2]=maxIndex;  
             sharedZoneInfo[i][3]=max;  
             sharedZoneInfo[i][4]=average;
-            
+            /*
             Info.append(i);
             Info.append(",");  
             Info.append(finalCluster[i].size());
@@ -800,7 +800,7 @@ public class PDAutoClust{
             
             Mode="Shared Region Information"+"_iteration_"+itertaion;
             writeResult(Path, Mode, Info);
-            
+            */
         }
         return sharedZoneInfo;       
     }
