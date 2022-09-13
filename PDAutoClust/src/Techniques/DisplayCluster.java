@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  *
  * @author Dr Md Anisur Rahman
  * School of Computing, Mathematics and Engineering, 
- * Charles Sturt University, Australia
+ * Charles Sturt University, Australia.
  * Email: arahman@csu.edu.au; javedcse@gmail.com
  * Date: 17/06/2022
  */
@@ -133,7 +133,7 @@ public class DisplayCluster extends Application{
         NumberAxis yAxis = new NumberAxis(yMin-yRange, yMax+yRange, 1);
         ScatterChart<Number,Number> plot = new ScatterChart<Number, Number>(xAxis, yAxis);           
 
-        // Plot the clusters on the plot         
+        // Plot all  clusters on the plot         
         for(int i=0;i<label.length;i++){
            plot.getData().add(clusterChart[i]); 
         }
