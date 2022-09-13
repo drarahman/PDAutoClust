@@ -345,13 +345,13 @@ public class PDAutoClust{
         Map<Integer, Integer> density = new HashMap();
         double distance=0;
         int count=0;
-
+        /*
         StringBuilder densityInfo=new StringBuilder();
         densityInfo.append("Record");
         densityInfo.append(",");
         densityInfo.append("UNS Density");
         densityInfo.append("\n");   
-
+        */
         boolean status=false;
 
         for(int i=0;i<recordIndex.size();i++){ //will calculate for every record
@@ -376,11 +376,12 @@ public class PDAutoClust{
             }
 
             density.put(recordIndex.elementAt(i), count); 
-
+            /*
             densityInfo.append(recordIndex.elementAt(i));
             densityInfo.append(",");
             densityInfo.append(count);
-            densityInfo.append("\n");   
+            densityInfo.append("\n");  
+            */
         }
             
         return density;
