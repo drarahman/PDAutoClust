@@ -170,7 +170,7 @@ public class PDAutoClustAblation{
         } 
         
         //PDAutoClust core method
-        Mode="PDAutoClust"; 
+        Mode="PDCM4"; 
         Vector<Integer>[] recordInCluster=pdAutoClustCoreMethod4(data, recordLabel, recordIndex, Path, Mode, r2rDistance, kernelDensity, kernelSimilarity, attrType, attrName, classValue, dataset);
         
         evaluationHeading.append("ARI");
