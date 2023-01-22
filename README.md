@@ -1,6 +1,8 @@
 **Citation:**
 **M. A. Rahman, L. M. Ang, and K. P. Seng, An Automated Identification Approach for Partial Discharge Detection Using Density-Based Clustering Without User Inputs, IEEE Transactions on Artificial Intelligence, vol. X, no. X, pp. XX–XX, 2023.**
 
+https://ieeexplore.ieee.org/document/10018452
+
 Title of the paper: PDAutoClust: An Automated Identification Approach for Partial Discharge Detection Using Density Based Clustering Without User Inputs
 
 Authors:
